@@ -304,6 +304,7 @@ void FanBA8206Timer::dump_config()
 
 void FanBA8206Timer::setup()
 {
+  this->set_icon("mdi:timer-outline");
 }
 
 void FanBA8206Timer::set_fan_timer(uint8_t timer)
@@ -319,7 +320,6 @@ void FanBA8206SetTimer::dump_config()
 
 void FanBA8206SetTimer::setup()
 {
-  this->set_icon("mdi:timer-outline");
 }
 
 void FanBA8206SetTimer::press_action()
