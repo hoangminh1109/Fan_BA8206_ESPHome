@@ -63,3 +63,9 @@ fan:
     i2c_id: bus_a
     independent_onoff: true
 ```
+
+## 🖼️ Screenshots
+
+<img src="assets/ba8206fan1.png" alt="ba8206fan1" height="300"/>
+
+<img src="assets/ba8206fan2.png" alt="ba8206fan2" height="300"/>
