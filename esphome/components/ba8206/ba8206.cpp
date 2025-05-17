@@ -1,18 +1,18 @@
 /*
- * Copyright 2025 Hoang Minh
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+* Copyright 2025 Hoang Minh
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
 
 #include "ba8206.h"
 #include "esphome/core/log.h"
@@ -235,7 +235,10 @@ void FanBA8206::control(const fan::FanCall &call)
     bool newstate = *call.get_state();
     if (!newstate) // off
     {
-      this->button_queue.push_back(FAN8206_BUTTON_OFF);
+      if (this->state)
+      {
+        this->button_queue.push_back(FAN8206_BUTTON_OFF);
+      }
     }
     else // on
     {
@@ -316,6 +319,7 @@ void FanBA8206SetTimer::dump_config()
 
 void FanBA8206SetTimer::setup()
 {
+  this->set_icon("mdi:timer-outline");
 }
 
 void FanBA8206SetTimer::press_action()

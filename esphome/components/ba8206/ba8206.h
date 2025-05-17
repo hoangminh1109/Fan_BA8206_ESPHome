@@ -177,9 +177,9 @@ public:
 
 protected:
   void control(const fan::FanCall &call) override;
-  fan::FanTraits traits_;
 
 private:
+  fan::FanTraits traits_;
   uint32_t last_run_{0};
   uint8_t sample_step{0};
   uint8_t led_on_counts[4][3] = {};
