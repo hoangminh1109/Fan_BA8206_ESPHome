@@ -1,5 +1,9 @@
 # 🌀 ESPHome Fan Component for BA8206 Controller
 
+**_This project is maintained in my free time. A coffee ☕ is always appreciated!_**
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/hoangminh1109)
+
 This is a custom ESPHome external component that implements the [fan component](https://esphome.io/components/fan/index.html) interface for fans using the BA8206 controller IC. The BA8206's control and status pins are interfaced through a PCF8575 GPIO expander, connected to an ESP8266 via I2C.
 
 ## ✨ Features
