@@ -148,7 +148,8 @@ void FanBA8206::update_state()
       if (this->fan_state_.mode != mode)
       {
         this->fan_state_.mode = mode;
-        this->preset_mode = FANMODE_STR[static_cast<uint8_t>(this->fan_state_.mode)];
+        // this->preset_mode = FANMODE_STR[static_cast<uint8_t>(this->fan_state_.mode)];
+        this->set_preset_mode_(FANMODE_STR[static_cast<uint8_t>(this->fan_state_.mode)]);
         state_change = true;
       }
 
@@ -275,11 +276,11 @@ void FanBA8206::control(const fan::FanCall &call)
     }
   }
 
-  if (this->state && (call.get_preset_mode() != "") && (call.get_preset_mode() != STR_FANMODE_OFF))
+  if (this->state && (call.has_preset_mode()) && (call.get_preset_mode() != std::string(STR_FANMODE_OFF)))
   {
-    if (call.get_preset_mode() != this->preset_mode)
+    if (call.get_preset_mode() != this->get_preset_mode())
     {
-      uint8_t curr_preset_id = FANMODE_ID[this->preset_mode];
+      uint8_t curr_preset_id = FANMODE_ID[this->get_preset_mode()];
       uint8_t new_preset_id = FANMODE_ID[call.get_preset_mode()];
       new_preset_id = new_preset_id < curr_preset_id ? new_preset_id + 3 : new_preset_id;
       this->button_queue.insert(this->button_queue.end(), new_preset_id-curr_preset_id, FAN8206_BUTTON_MODE);
