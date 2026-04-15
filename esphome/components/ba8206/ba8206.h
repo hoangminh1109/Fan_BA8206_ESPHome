@@ -170,6 +170,7 @@ public:
   void set_independent_onoff(bool independent_onoff) {this->independent_onoff_ = independent_onoff;}
   void set_fan_timer(FanBA8206Timer *fan_timer) { this->fan_timer_ = fan_timer; }
   void set_fan_settimer(FanBA8206SetTimer *fan_settimer) { this->fan_settimer_ = fan_settimer; }
+  void set_boot_off(bool boot_off) {this->boot_off_ = boot_off;}
   fan::FanTraits get_traits() override { return this->traits_; }
   std::deque<uint8_t> button_queue{};
   void process_command();
@@ -187,6 +188,7 @@ private:
 
   int interval_ms_{0};
   bool independent_onoff_{false};
+  bool boot_off_{false};
 
   FanBA8206Timer *fan_timer_{nullptr};
   FanBA8206SetTimer *fan_settimer_{nullptr};

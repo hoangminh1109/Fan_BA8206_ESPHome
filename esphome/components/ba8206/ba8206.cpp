@@ -41,6 +41,13 @@ void FanBA8206::setup()
   this->fan_state_.mode = FAN8206_MODE_INVALID;
 
   this->fan_timer_->publish_state(STR_FANTIMER_NONE_STR);
+
+  if (this->boot_off_)
+  {
+    this->button_queue.push_back(FAN8206_BUTTON_OFF);
+    this->processing = true;
+    this->process_command();
+  }
 }
 
 void FanBA8206::dump_config()
@@ -305,7 +312,6 @@ void FanBA8206Timer::dump_config()
 
 void FanBA8206Timer::setup()
 {
-  this->set_icon("mdi:timer-outline");
 }
 
 void FanBA8206Timer::set_fan_timer(uint8_t timer)

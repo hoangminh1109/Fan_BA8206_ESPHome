@@ -47,6 +47,7 @@ CONF_FANTIMER_ID = "fantimer_id"
 CONF_FANSETTIMER_ID = "fansettimer_id"
 CONF_INTERVAL_MS = "interval"
 CONF_SEPARATED_ONOFF = "independent_onoff"
+CONF_BOOT_OFF = "boot_off"
 
 CONFIG_SCHEMA = (fan.fan_schema(FanBA8206).extend({
             cv.GenerateID(CONF_OUTPUT_ID): cv.declare_id(FanBA8206),
@@ -54,6 +55,7 @@ CONFIG_SCHEMA = (fan.fan_schema(FanBA8206).extend({
             cv.GenerateID(CONF_FANSETTIMER_ID): cv.declare_id(FanBA8206SetTimer),
             cv.Optional(CONF_INTERVAL_MS, default=1): cv.int_range(min=1),
             cv.Optional(CONF_SEPARATED_ONOFF, default=False): cv.boolean,
+            cv.Optional(CONF_BOOT_OFF, default=False): cv.boolean
     })
     .extend(cv.COMPONENT_SCHEMA)
     .extend(i2c.i2c_device_schema(0x20))
@@ -66,11 +68,13 @@ async def to_code(config):
     await fan.register_fan(var, config)
     await i2c.register_i2c_device(var, config)
     cg.add(var.set_independent_onoff(config[CONF_SEPARATED_ONOFF]))
+    cg.add(var.set_boot_off(config[CONF_BOOT_OFF]))
 
     # Fan timer text_sensor
     fantimer_default_config = { CONF_ID: config[CONF_FANTIMER_ID],
                                 CONF_NAME: "Timer",
-                                CONF_DISABLED_BY_DEFAULT: False}
+                                CONF_DISABLED_BY_DEFAULT: False,
+                                "icon": "mdi:timer-outline"}
     fantimer = cg.new_Pvariable(config[CONF_FANTIMER_ID])
     await text_sensor.register_text_sensor(fantimer, fantimer_default_config)
     await cg.register_component(fantimer, fantimer_default_config)
