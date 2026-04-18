@@ -171,7 +171,10 @@ public:
   void set_fan_timer(FanBA8206Timer *fan_timer) { this->fan_timer_ = fan_timer; }
   void set_fan_settimer(FanBA8206SetTimer *fan_settimer) { this->fan_settimer_ = fan_settimer; }
   void set_boot_off(bool boot_off) {this->boot_off_ = boot_off;}
-  fan::FanTraits get_traits() override { return this->traits_; }
+  fan::FanTraits get_traits() override {
+    this->wire_preset_modes_(this->traits_);
+    return this->traits_;
+  }
   std::deque<uint8_t> button_queue{};
   void process_command();
   bool processing{false};

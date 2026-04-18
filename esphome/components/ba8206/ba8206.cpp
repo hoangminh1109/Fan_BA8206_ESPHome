@@ -31,9 +31,8 @@ void FanBA8206::setup()
   }
 
   // Construct traits
-  fan::FanTraits fan_traits(true, true, false, 3);
-  fan_traits.set_supported_preset_modes({STR_FANMODE_NORMAL, STR_FANMODE_NATURE, STR_FANMODE_SLEEP});
-  this->traits_ = fan_traits;
+  this->set_supported_preset_modes({STR_FANMODE_NORMAL, STR_FANMODE_NATURE, STR_FANMODE_SLEEP});
+  this->traits_ = fan::FanTraits(true, true, false, 3);
 
   this->fan_state_.speed = FAN8206_INVALID;
   this->fan_state_.oscillating = FAN8206_OSC_INVALID;
